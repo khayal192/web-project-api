@@ -3,7 +3,7 @@ import { UserEntity } from '../user/user.entity';
 import { PostEntity } from '../post/post.entity';
 import { ApiProperty } from '@nestjs/swagger';
 
-@Entity()
+@Entity('comment')
 export class CommentEntity {
   @PrimaryGeneratedColumn()
   @ApiProperty()
