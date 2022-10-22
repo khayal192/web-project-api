@@ -82,7 +82,7 @@ export class CommentService {
     comment.user = user;
     comment.body = createCommentDto.body;
     const newComment = await this.commentRepository.save(comment);
-
+    console.log('salam');
     const { user: commentUser, post: commentPost, ...response } = newComment;
     return response;
   }
