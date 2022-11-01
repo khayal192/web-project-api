@@ -4,11 +4,20 @@ import { PostController } from './post.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostEntity } from './post.entity';
 import { UserEntity } from '../user/user.entity';
+import { CommentEntity } from '../comment/comment.entity';
+import { LikeEntity } from '../like/like.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([PostEntity, UserEntity])],
+  imports: [
+    TypeOrmModule.forFeature([
+      PostEntity,
+      UserEntity,
+      CommentEntity,
+      LikeEntity,
+    ]),
+  ],
   controllers: [PostController],
   providers: [PostService],
-  exports: [],
+  exports: [PostService],
 })
 export class PostModule {}

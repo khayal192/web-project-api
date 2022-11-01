@@ -30,19 +30,19 @@ import { UpdatePostDto } from './dto/update-post.dto';
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
-  @UseGuards(JwtAuthGuard)
-  @ApiOperation({ summary: 'Find All Posts' })
-  @Get('all')
-  async findAllPosts() {
-    return this.postService.findAll();
-  }
-
   @ApiOperation({ summary: 'Create Posts' })
   @ApiResponse({ status: 200 })
   @UseGuards(JwtAuthGuard)
   @Post()
   async createPosts(@CurrentUser() user, @Body() createPostDto: CreatePostDto) {
     return this.postService.createPosts(createPostDto, user.userId);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiOperation({ summary: 'Find All Posts' })
+  @Get('')
+  async findAllPosts(@CurrentUser() user) {
+    return await this.postService.findAll(user.userId);
   }
 
   @ApiOperation({ summary: 'Find by id posts' })
