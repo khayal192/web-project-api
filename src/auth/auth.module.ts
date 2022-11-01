@@ -9,10 +9,12 @@ import { LocalStrategy } from './local.stgrategy';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
 import { jwtConstants } from './constans';
+import { PostEntity } from '../post/post.entity';
+import { CommentEntity } from '../comment/comment.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([UserEntity]),
+    TypeOrmModule.forFeature([UserEntity, PostEntity, CommentEntity]),
     JwtModule.register({
       secret: jwtConstants.secret,
       signOptions: {

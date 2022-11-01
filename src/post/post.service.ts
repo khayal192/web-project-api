@@ -21,8 +21,11 @@ export class PostService {
     private readonly postsRepository: Repository<PostEntity>,
   ) {}
 
-  async findAll() {
-    return await this.postsRepository.find({ relations: ['user'] });
+  async findAll(userId: number) {
+    return await this.postsRepository.find({
+      where: { user: { id: userId } },
+      relations: ['user'],
+    });
   }
 
   async findById(id: number) {
@@ -41,6 +44,7 @@ export class PostService {
     if (!user) {
       throw new NotFoundException(`USER NOT FOUND`);
     }
+
     const post = await this.postsRepository.create(createPostsDto);
     post.user = user;
     return this.postsRepository.save(post);

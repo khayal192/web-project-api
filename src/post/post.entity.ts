@@ -6,20 +6,17 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
-import { ApiProperty } from '@nestjs/swagger';
 import { CommentEntity } from '../comment/comment.entity';
+import { LikeEntity } from '../like/like.entity';
 
 @Entity('posts')
 export class PostEntity {
   @PrimaryGeneratedColumn()
-  @ApiProperty()
   id: number;
 
-  @ApiProperty()
   @Column()
   title: string;
 
-  @ApiProperty()
   @Column()
   content: string;
 
@@ -33,4 +30,9 @@ export class PostEntity {
     onDelete: 'CASCADE',
   })
   comments: CommentEntity;
+
+  @OneToMany(() => LikeEntity, (like) => like.post, {
+    onDelete: 'CASCADE',
+  })
+  like: LikeEntity[];
 }

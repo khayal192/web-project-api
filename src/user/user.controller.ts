@@ -1,9 +1,20 @@
-import { Controller, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { ApiTags } from '@nestjs/swagger';
+import { CurrentUser } from '../auth/user.decorarator';
+import { UpdateUsersDto } from './dto/update.users.dto';
 
 @ApiTags('user')
-@Controller()
+@Controller('user')
 export class UserController {
   constructor(private readonly usersService: UserService) {}
 
@@ -15,5 +26,24 @@ export class UserController {
   @Post('email')
   async findByEmail(email) {
     return this.usersService.findByEmail(email);
+  }
+
+  2;
+
+  @Delete(':id')
+  async deletePosts(
+    @CurrentUser() user,
+    @Param('id', new ParseIntPipe()) id: number,
+  ) {
+    return this.usersService.deleteUser(id);
+  }
+
+  @Put(':id')
+  async updateUser(
+    @CurrentUser() user,
+    @Param('id', new ParseIntPipe()) id: number,
+    @Body() updateUserDto: UpdateUsersDto,
+  ) {
+    return this.usersService.updateUser(updateUserDto, id);
   }
 }

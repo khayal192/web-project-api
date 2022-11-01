@@ -16,9 +16,9 @@ import { JwtService } from '@nestjs/jwt';
 export class AuthService {
   constructor(
     private readonly userService: UserService,
+    private readonly jwtService: JwtService,
     @InjectRepository(UserEntity)
     private readonly usersRepository: Repository<UserEntity>,
-    private readonly jwtService: JwtService,
   ) {}
 
   async validateUser(username: string, pass: string): Promise<any> {
@@ -34,6 +34,13 @@ export class AuthService {
       }
     }
     return null;
+  }
+
+  async login(user: any) {
+    const payload = { username: user.username, sub: user.id };
+    return {
+      access_token: this.jwtService.sign(payload),
+    };
   }
 
   async registration(createUserDto: CreateUsersDto) {
@@ -56,12 +63,5 @@ export class AuthService {
 
   findByEmail(email: string) {
     return this.usersRepository.findOne({ where: { email } });
-  }
-
-  async login(user: any) {
-    const payload = { username: user.username, sub: user.id };
-    return {
-      access_token: this.jwtService.sign(payload),
-    };
   }
 }
