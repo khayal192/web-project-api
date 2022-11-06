@@ -28,8 +28,6 @@ export class UserController {
     return this.usersService.findByEmail(email);
   }
 
-  2;
-
   @Delete(':id')
   async deletePosts(
     @CurrentUser() user,
@@ -45,5 +43,10 @@ export class UserController {
     @Body() updateUserDto: UpdateUsersDto,
   ) {
     return this.usersService.updateUser(updateUserDto, id);
+  }
+
+  @Get()
+  async findAllUsers() {
+    return await this.usersService.findAllUsers();
   }
 }

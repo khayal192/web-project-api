@@ -2,6 +2,8 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { PostEntity } from '../post/post.entity';
 import { CommentEntity } from '../comment/comment.entity';
 import { LikeEntity } from '../like/like.entity';
+import { BannedListEntity } from '../banned/banned.list.entity';
+import { ShareEntity } from '../share/share.entity';
 
 @Entity('users')
 export class UserEntity {
@@ -33,4 +35,24 @@ export class UserEntity {
     onDelete: 'CASCADE',
   })
   like: LikeEntity[];
+
+  @OneToMany(() => BannedListEntity, (banned) => banned.user, {
+    onDelete: 'CASCADE',
+  })
+  banned: BannedListEntity[];
+
+  @OneToMany(() => BannedListEntity, (banned) => banned.user, {
+    onDelete: 'CASCADE',
+  })
+  banning: BannedListEntity[];
+
+  @OneToMany(() => ShareEntity, (share) => share.user, {
+    onDelete: 'CASCADE',
+  })
+  send: UserEntity[];
+
+  @OneToMany(() => ShareEntity, (share) => share.user, {
+    onDelete: 'CASCADE',
+  })
+  sender: UserEntity;
 }

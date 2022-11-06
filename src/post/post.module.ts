@@ -6,6 +6,7 @@ import { PostEntity } from './post.entity';
 import { UserEntity } from '../user/user.entity';
 import { CommentEntity } from '../comment/comment.entity';
 import { LikeEntity } from '../like/like.entity';
+import { ShareEntity } from '../share/share.entity';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { LikeEntity } from '../like/like.entity';
       UserEntity,
       CommentEntity,
       LikeEntity,
+      ShareEntity,
     ]),
   ],
   controllers: [PostController],
