@@ -18,6 +18,10 @@ export class UserService {
     private readonly userRepository: Repository<UserEntity>,
   ) {}
 
+  async findAllUsers() {
+    return await this.userRepository.find();
+  }
+
   async findById(id: number) {
     const findUser = await this.userRepository.findOne({ where: { id } });
     if (!findUser) {

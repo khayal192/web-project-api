@@ -1,27 +1,24 @@
 import { Module } from '@nestjs/common';
-import { UserController } from './user.controller';
-import { UserService } from './user.service';
+import { ShareService } from './share.service';
+import { ShareController } from './share.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserEntity } from './user.entity';
+import { UserEntity } from '../user/user.entity';
+import { ShareEntity } from './share.entity';
 import { PostEntity } from '../post/post.entity';
 import { CommentEntity } from '../comment/comment.entity';
-import { LikeEntity } from '../like/like.entity';
-import { ShareEntity } from '../share/share.entity';
 import { BannedListEntity } from '../banned/banned.list.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
       UserEntity,
+      ShareEntity,
       PostEntity,
       CommentEntity,
-      LikeEntity,
-      ShareEntity,
       BannedListEntity,
     ]),
   ],
-  controllers: [UserController],
-  providers: [UserService],
-  exports: [UserService],
+  controllers: [ShareController],
+  providers: [ShareService],
 })
-export class UserModule {}
+export class ShareModule {}

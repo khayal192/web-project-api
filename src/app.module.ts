@@ -13,6 +13,10 @@ import { CommentModule } from './comment/comment.module';
 import { CommentEntity } from './comment/comment.entity';
 import { LikeModule } from './like/like.module';
 import { LikeEntity } from './like/like.entity';
+import { BannedModule } from './banned/banned.module';
+import { BannedListEntity } from './banned/banned.list.entity';
+import { ShareModule } from './share/share.module';
+import { ShareEntity } from './share/share.entity';
 
 @Module({
   imports: [
@@ -26,7 +30,14 @@ import { LikeEntity } from './like/like.entity';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      entities: [UserEntity, PostEntity, CommentEntity, LikeEntity],
+      entities: [
+        UserEntity,
+        PostEntity,
+        CommentEntity,
+        LikeEntity,
+        BannedListEntity,
+        ShareEntity,
+      ],
       synchronize: true,
     }),
 
@@ -35,6 +46,8 @@ import { LikeEntity } from './like/like.entity';
     PostModule,
     CommentModule,
     LikeModule,
+    BannedModule,
+    ShareModule,
   ],
   controllers: [AppController],
   providers: [AppService],
